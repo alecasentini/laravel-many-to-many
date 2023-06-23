@@ -24,4 +24,16 @@ Portfolio | Project Show
     
 </p>
 
+<p>
+    Tecnologie:
+    @if ($project->technologies)
+        @foreach ($project->technologies as $elem)
+            <span>{{ $elem->name }}</span>
+        @endforeach
+    @endif
+</p>
+
+
+
+
 @endsection
