@@ -7,6 +7,7 @@ use App\Models\Admin\Project;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Models\Admin\Technology;
 use App\Models\Admin\Type;
 
 use Illuminate\Support\Facades\Storage;
@@ -33,10 +34,10 @@ class ProjectController extends Controller
      */
     public function create()
     {
-
+        $technologies = Technology::all();
         $types = Type::all();
 
-        return view('admin.projects.create', compact('types'));
+        return view('admin.projects.create', compact('types', 'technologies'));
     }
 
     /**
@@ -66,6 +67,9 @@ class ProjectController extends Controller
 
         $form_data['slug'] = $slug;
 
+
+
+
         if ($request->hasFile('cover_image')) {
             $path = Storage::disk('public')->put('project_images', $request->cover_image);
             $form_data['cover_image'] = $path;
@@ -73,6 +77,9 @@ class ProjectController extends Controller
 
         $new_project = Project::create($form_data);
 
+        if ($request->has('technologies')) {
+            $new_project->technologies()->attach($request->technologies);
+        }
         // $new_project = new Project();
         // $new_project->fill($form_data);
         // $new_project->save();

@@ -54,6 +54,19 @@ Portfolio | Project Create
         </select>
     </div>
 
+    <div class="form-group mb-3">
+        @foreach ($technologies as $elem)
+        <div class="form-check">
+            <input class="form-check-input" 
+                type="checkbox" 
+                name="technologies[]"
+                value="{{$elem->id}}" 
+                id="projects-checkbox-{{$elem->id}}">
+            <label class="form-check-label" for="">{{$elem->name}}</label>
+        </div>
+        @endforeach
+    </div>
+
     <button class="btn btn-primary">Crea Project</button>
 </form>
 
