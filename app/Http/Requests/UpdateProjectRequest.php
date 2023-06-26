@@ -30,6 +30,7 @@ class UpdateProjectRequest extends FormRequest
             'client' => ['nullable'],
             'cover_image' => ['nullable', 'image', 'max:2000'],
             'category_id' => ['nullable', 'exists:types,id'],
+            'technologies' => ['exists:technologies,id'],
         ];
     }
 
@@ -42,6 +43,7 @@ class UpdateProjectRequest extends FormRequest
             'cover_image.image' => 'Devi caricare un file image',
             'cover_image.max' => 'Il file caricato non deve superare i 2000 KB',
             'category_id.exist' => 'Il Type non esiste',
+            'technologies.exist' => 'La Technology non esiste',
         ];
     }
 }

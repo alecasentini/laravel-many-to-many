@@ -54,6 +54,39 @@ Portfolio | Project Edit
         </select>
     </div>
 
+    <div class="form-group mb-3">
+        @foreach ($technologies as $elem)
+        <div class="form-check @error('technologies') is-invalid  @enderror">
+
+            @if($errors->any())
+
+            <input class="form-check-input" 
+                type="checkbox" 
+                name="technologies[]"
+                value="{{$elem->id}}" 
+                id="projects-checkbox-{{$elem->id}}"
+                {{in_array($elem->id, old('technologies', [] ) ) ? 'checked' : '' }}>
+
+                
+            @else
+
+            <input class="form-check-input" 
+            type="checkbox" 
+            name="technologies[]"
+            value="{{$elem->id}}" 
+            id="projects-checkbox-{{$elem->id}}"
+            {{ ($project->technologies->contains($elem)) ? 'checked' : '' }}>
+     
+            @endif
+
+            <label class="form-check-label" for="">{{$elem->name}}</label>
+        </div>
+        @endforeach
+    </div>
+
+    @error('technologies')
+    <div class="alert alert-danger">{{$message}}</div>
+    @enderror
 
     <button class="btn btn-primary">Modifica Project</button>
 </form>
